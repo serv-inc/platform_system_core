@@ -17,7 +17,7 @@
 #ifndef _LIBLOG_LOGGER_H__
 #define _LIBLOG_LOGGER_H__
 
-#include <stdatomic.h>
+#include <atomic>
 #include <stdbool.h>
 
 #include <cutils/list.h>
@@ -25,6 +25,9 @@
 #include <log/uio.h>
 
 #include "log_portability.h"
+
+using std::atomic_int;
+using std::atomic_uintptr_t;
 
 __BEGIN_DECLS
 

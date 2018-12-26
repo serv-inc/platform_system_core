@@ -1,8 +1,17 @@
 NAME = liblog
-SOURCES = log_event_list.c log_event_write.c logger_write.c \
-          config_write.c logger_name.c logger_lock.c \
-          fake_log_device.c fake_writer.c \
-          event_tag_map.cpp
+# SOURCES copied from Android.bp
+SOURCES =  config_read.c\
+    config_write.c\
+    local_logger.c\
+    log_event_list.c\
+    log_event_write.c\
+    log_ratelimit.cpp\
+    logger_lock.c\
+    logger_name.c\
+    logger_read.c\
+    logger_write.c\
+    logprint.c\
+    stderr_write.c
 SOURCES := $(foreach source, $(SOURCES), liblog/$(source))
 CFLAGS += -fvisibility=hidden -fPIC
 CPPFLAGS += -Iinclude \
