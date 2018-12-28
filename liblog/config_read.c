@@ -28,14 +28,15 @@ LIBLOG_HIDDEN struct listnode __android_log_persist_read = {
 
 static void __android_log_add_transport(
     struct listnode* list, struct android_log_transport_read* transport) {
-  size_t i;
+  int i;
 
   /* Try to keep one functioning transport for each log buffer id */
   for (i = LOG_ID_MIN; i < LOG_ID_MAX; i++) {
+    log_id_t log_i = static_cast<log_id_t>(i);
     struct android_log_transport_read* transp;
 
     if (list_empty(list)) {
-      if (!transport->available || ((*transport->available)(i) >= 0)) {
+      if (!transport->available || ((*transport->available)(log_i) >= 0)) {
         list_add_tail(list, &transport->node);
         return;
       }
@@ -44,8 +45,8 @@ static void __android_log_add_transport(
         if (!transp->available) {
           return;
         }
-        if (((*transp->available)(i) < 0) &&
-            (!transport->available || ((*transport->available)(i) >= 0))) {
+        if (((*transp->available)(log_i) < 0) &&
+            (!transport->available || ((*transport->available)(log_i) >= 0))) {
           list_add_tail(list, &transport->node);
           return;
         }
