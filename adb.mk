@@ -1,11 +1,29 @@
 NAME = adb
-SOURCES = adb_client.cpp \
-          client/main.cpp \
-          console.cpp \
-          commandline.cpp \
-          file_sync_client.cpp \
-          line_printer.cpp \
-          shell_service_protocol.cpp
+SOURCES = adb.cpp\
+    adb_io.cpp\
+    adb_listeners.cpp\
+    adb_trace.cpp\
+    adb_unique_fd.cpp\
+    adb_utils.cpp\
+    fdevent.cpp\
+    services.cpp\
+    sockets.cpp\
+    socket_spec.cpp\
+    sysdeps/errno.cpp\
+    transport.cpp\
+    transport_fd.cpp\
+    transport_local.cpp\
+    transport_usb.cpp\
+    sysdeps_unix.cpp\
+    sysdeps/posix/network.cpp\
+    client/auth.cpp\
+    client/usb_libusb.cpp\
+    client/usb_dispatch.cpp\
+    client/transport_mdns.cpp\
+    client/fastdeploy.cpp\
+    client/fastdeploycallbacks.cpp
+CXX=eg++
+
 SOURCES := $(foreach source, $(SOURCES), adb/$(source))
 CXXFLAGS += -std=c++14 -fpermissive
 CPPFLAGS += -Iinclude -Iadb -Ibase/include \

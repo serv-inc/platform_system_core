@@ -44,8 +44,10 @@
 #include <android-base/parsenetaddress.h>
 #include <android-base/stringprintf.h>
 #include <android-base/strings.h>
+#if 0
 #include <build/version.h>
 #include <platform_tools_version.h>
+#endif
 
 #include "adb_auth.h"
 #include "adb_io.h"

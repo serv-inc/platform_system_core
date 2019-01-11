@@ -469,6 +469,7 @@ class ScopedLogSeverity {
 }  // namespace base
 }  // namespace android
 
+#ifndef __OpenBSD__
 namespace std {
 
 // Emit a warning of ostream<< with std::string*. The intention was most likely to print *string.
@@ -493,3 +494,4 @@ inline std::ostream& operator<<(std::ostream& stream, const std::string* string_
 #pragma clang diagnostic pop
 
 }  // namespace std
+#endif

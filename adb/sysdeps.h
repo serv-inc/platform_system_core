@@ -322,6 +322,7 @@ size_t ParseCompleteUTF8(const char* first, const char* last, std::vector<char>*
 #include <netinet/tcp.h>
 #include <poll.h>
 #include <pthread.h>
+#include <pthread_np.h>
 #include <signal.h>
 #include <stdarg.h>
 #include <stdint.h>
@@ -444,7 +445,7 @@ static __inline__  int  adb_write(int  fd, const void*  buf, size_t  len)
 #define  write  ___xxx_write
 
 static __inline__ int64_t adb_lseek(int fd, int64_t pos, int where) {
-#if defined(__APPLE__)
+#if defined(__APPLE__) || defined(__OpenBSD__)
     return lseek(fd, pos, where);
 #else
     return lseek64(fd, pos, where);
@@ -534,6 +535,9 @@ inline int adb_socket_get_local_port(int fd) {
 static __inline__ int adb_thread_setname(const std::string& name) {
 #ifdef __APPLE__
     return pthread_setname_np(name.c_str());
+#elif defined __OpenBSD__
+    pthread_set_name_np(pthread_self(), name.c_str());
+    return 0;
 #else
     // Both bionic and glibc's pthread_setname_np fails rather than truncating long strings.
     // glibc doesn't have strlcpy, so we have to fake it.
