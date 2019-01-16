@@ -44,7 +44,7 @@
 #include <android-base/parsenetaddress.h>
 #include <android-base/stringprintf.h>
 #include <android-base/strings.h>
-#if 0
+#ifndef __OpenBSD__
 #include <build/version.h>
 #include <platform_tools_version.h>
 #endif
